@@ -12,7 +12,7 @@ This guide outlines a step-by-step method to access and play unblocked games usi
 - Search for an unblocked games repository on GitHub that permits hosting on platforms such as Netlify or Heroku.
 
 ### Step 2: Host the Website
-- Once you've identified a suitable repository, host the website using a service like Netlify or Heroku. Follow their instructions to deploy the site.
+- Once you've identified a suitable repository, host the website on your preffered hosting service. Follow their instructions to deploy the site.
 
 ### Step 3: Create a Google Site
 - Visit sites.google.com and create a new site.
