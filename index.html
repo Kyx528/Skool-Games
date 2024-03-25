@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Netlify Site Name</title>
+    <style>
+        body {
+            background-color: #292b2c;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #launchButton {
+            background-color: red;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #progressBar {
+            display: none;
+            width: 100%;
+            height: 20px;
+            margin-top: 20px;
+            background-color: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        #progressFill {
+            height: 100%;
+            background-color: red;
+            border-radius: 10px;
+            transition: width 1s linear;
+        }
+
+        #progressText {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <button id="launchButton" onclick="launchSite()">Launch Site</button>
+    <div id="progressBar">
+        <div id="progressFill"></div>
+    </div>
+    <div id="progressText"></div>
+
+    <script>
+        // Function to update the site name via API
+        function updateNetlifySiteName(newName) {
+            // Replace these values with your actual Netlify site ID and API token
+            const siteId = 'Your Site Id';
+            const apiToken = 'Your Api Token';
+
+            // API endpoint
+            const apiUrl = `https://api.netlify.com/api/v1/sites/${siteId}`;
+
+            // Request headers
+            const headers = {
+                'Authorization': `Bearer ${apiToken}`,
+                'Content-Type': 'application/json',
+            };
+
+            // Request data
+            const data = {
+                'name': newName,
+            };
+
+            // Make a PATCH request to update the site name
+            return fetch(apiUrl, {
+                method: 'PATCH',
+                headers: headers,
+                body: JSON.stringify(data),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Failed to update Netlify site name: ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(() => {
+                console.log(`Netlify site name updated successfully to: ${newName}`);
+            })
+            .catch(error => {
+                console.error(`Error updating Netlify site name: ${error.message}`);
+            });
+        }
+
+        // Function to launch the Netlify site with a delay and progress bar
+        function launchSite() {
+            const randomName = generateRandomName();
+            const netlifyAppURL = `https://${randomName}.netlify.app`;
+
+            // Show progress bar
+            document.getElementById('progressBar').style.display = 'block';
+
+            // Set interval for progress update
+            const intervalTime = 1000;
+            const totalTime = 1000;
+            let currentTime = 0;
+
+            const progressInterval = setInterval(() => {
+                const progressBar = document.getElementById('progressFill');
+                const progressText = document.getElementById('progressText');
+                
+                const currentWidth = (currentTime / totalTime) * 100;
+
+                progressBar.style.width = `${currentWidth}%`;
+                progressText.innerText = `Launching in ${(totalTime - currentTime) / 1000} seconds`;
+
+                if (currentTime >= totalTime) {
+                    // Hide progress bar and launch the site after the delay
+                    clearInterval(progressInterval);
+                    setTimeout(() => {
+                        document.getElementById('progressBar').style.display = 'none';
+                        updateNetlifySiteName(randomName).then(() => {
+                            // Open the Netlify site in a new page
+                            window.open(netlifyAppURL, '_blank');
+                        });
+                    }, intervalTime);
+                }
+
+                currentTime += intervalTime;
+            }, intervalTime);
+        }
+
+        // Generate a random alphanumeric name
+        function generateRandomName() {
+            const alphanumericChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let randomName = '';
+            for (let i = 0; i < 10; i++) {
+                randomName += alphanumericChars.charAt(Math.floor(Math.random() * alphanumericChars.length));
+            }
+            return randomName;
+        }
+    </script>
+</body>
+</html>
+
