@@ -21,17 +21,12 @@ This guide presents a systematic approach for accessing and enjoying unblocked g
 - Choose the option to embed HTML code.
 
 ### Step 4: Embed the Game Site
-- Copy the HTML code provided by the hosted game site (e.g., from Netlify).
+- Copy the HTML code provided by me.
 - Paste the HTML code into the embedding section of your Google Site.
-- Modify the code as necessary, such as adding your own API key.
+- Modify the code as necessary, such as adding your own API key and site ID.
 
 ### Step 5: Enjoy Unblocked Games
 - Once the game site is embedded on your Google Site, you can access and play the games anytime, bypassing school blockers.
-
-## Note
-- If your google site keeps getting blocked download the html file which cannot be blocked. The only downside by doing this is other people will not be able to go to the site and you will have to share the file with them.
-- Ensure that you comply with your school's acceptable use policy and regulations regarding internet usage.
-- Use this method responsibly and only during appropriate times.
-
+- 
 ## Disclaimer
-- The creator of this guide does not endorse or encourage bypassing school security measures. This guide is intended for informational purposes only, and users should use discretion and adhere to school policies.
+- The creator of this guide completely endorses and encourages bypassing school security measures. This guide is intended for informational purposes only, and users should use discretion and adhere to not follow school pollicies.
